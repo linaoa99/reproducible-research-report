@@ -1,0 +1,58 @@
+﻿{
+  "downloadInformation": {
+    "downloadSource": "jexis.idiv.de",
+    "downloadDate": "9/12/2026 8:14:48 AM",
+    "downloadedBy": "ANONYMOUS",
+    "downloadedFilter": null
+  },
+  "id": 913,
+  "version": 14,
+  "versionId": 4178,
+  "title": "Data and R code used in: Temporal decoupling of biodiversity effects on grassland productivity and stability",
+  "description": "One key unresolved question in ecology is what drives temporal trends in biodiversity-stability relationships and how these trends link to ecosystem functioning. This knowledge gap reflects limited understanding of interspecific interactions in biodiversity–stability relationships. Using plant productivity data from a 20-year grassland biodiversity experiment, complemented by a paired 5-year experiment that controlled for legacy effects, we disentangled the contributions of species-specific dynamics and interactions-dependent processes to plant community stability.\nThis dataset contains data and R code for the analysis.",
+  "dataStructureId": 0,
+  "metadataStructureId": 85,
+  "entityTemplateId": 1,
+  "isPublic": true,
+  "publicationDate": "7/7/2026 10:09:27 AM",
+  "additionalInformations": {
+    "author": "Meng ,Bo,,Eisenhauer, Nico,Wang, Shaopeng",
+    "description": "One key unresolved question in ecology is what drives temporal trends in biodiversity-stability relationships and how these trends link to ecosystem functioning. This knowledge gap reflects limited understanding of interspecific interactions in biodiversity–stability relationships. Using plant productivity data from a 20-year grassland biodiversity experiment, complemented by a paired 5-year experiment that controlled for legacy effects, we disentangled the contributions of species-specific dynamics and interactions-dependent processes to plant community stability.\nThis dataset contains data and R code for the analysis.",
+    "title": "Data and R code used in: Temporal decoupling of biodiversity effects on grassland productivity and stability",
+    "email": "mengb680@nenu.edu.cn",
+    "id": "913",
+    "version": "14",
+    "metadataCreationDate": "7/6/2026 3:21:32 PM",
+    "metadataLastModfied": "7/7/2026 10:07:21 AM",
+    "dataLastModified": "7/7/2026 9:46:15 AM"
+  },
+  "parties": {
+    "bo Meng": {
+      "firstName": "Bo",
+      "lastName": "Meng"
+    },
+    "nico Eisenhauer": {
+      "firstName": "Nico",
+      "lastName": "Eisenhauer"
+    },
+    "mengb680@nenu.edu.cn": {
+      "firstName": "Bo",
+      "lastName": "Meng"
+    }
+  },
+  "versionDate": "7/7/2026 8:07:21 AM",
+  "names": {
+    "": {
+      "givenName": "",
+      "familyName": ""
+    },
+    "shaopeng Wang": {
+      "givenName": "Shaopeng",
+      "familyName": "Wang"
+    }
+  },
+  "links": {
+    "from": [],
+    "to": []
+  }
+}

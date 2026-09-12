@@ -1,0 +1,122 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<metaProfile xmlns:bgc="https://www.w3schools.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="https://www.w3schools.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <general>
+    <title>Data and R code used in: Temporal decoupling of biodiversity effects on grassland productivity and stability</title>
+    <abstract>One key unresolved question in ecology is what drives temporal trends in biodiversity-stability relationships and how these trends link to ecosystem functioning. This knowledge gap reflects limited understanding of interspecific interactions in biodiversity–stability relationships. Using plant productivity data from a 20-year grassland biodiversity experiment, complemented by a paired 5-year experiment that controlled for legacy effects, we disentangled the contributions of species-specific dynamics and interactions-dependent processes to plant community stability.
+This dataset contains data and R code for the analysis.</abstract>
+    <synthesis>Yes</synthesis>
+    <experiment>Main</experiment>
+    <OtherExperimentSpecify>dBEF</OtherExperimentSpecify>
+    <doi>https://doi.org/10.25829/WH40-D577</doi>
+    <datasetID>913</datasetID>
+    <versionID>14</versionID>
+    <registrationDate>7/6/2026 3:21:32 PM</registrationDate>
+    <metadataLastModificationDate>7/7/2026 10:07:21 AM</metadataLastModificationDate>
+    <dataLastModificationDate>7/7/2026 9:46:15 AM</dataLastModificationDate>
+  </general>
+  <authorship>
+    <metadataCreator>Bo Meng</metadataCreator>
+    <dataCreator>Bo Meng</dataCreator>
+    <ProjectLeader>
+      <name>Nico Eisenhauer</name>
+      <email>nico.eisenhauer@idiv.de</email>
+    </ProjectLeader>
+    <ProjectLeader>
+      <name>Shaopeng Wang</name>
+      <email>shaopeng.wang@pku.edu.cn</email>
+    </ProjectLeader>
+    <contactPerson>
+      <name>Bo Meng</name>
+      <email>mengb680@nenu.edu.cn</email>
+      <street>No.5 Yiheyuan Road</street>
+      <postalCode>100871</postalCode>
+      <city>Beijing</city>
+      <country>China</country>
+      <phone>1594804350</phone>
+    </contactPerson>
+    <institute>
+      <instituteName>College of Resources and Environmental Sciences, China Agricultural University</instituteName>
+      <instituteName>College of Urban and Environmental Sciences, Peking University</instituteName>
+      <instituteName>German Centre for Integrative Biodiversity Research (iDiv) Halle-Jena-Leipzig</instituteName>
+      <instituteName>Institute of Biology, Leipzig University</instituteName>
+    </institute>
+    <authorshipContribution>NE and SW supervised the data analysis. BM performed the data analysis.</authorshipContribution>
+  </authorship>
+  <methods>
+    <measurements>
+      <samplingDesign>The Jena Main Biodiversity Experiment was initiated in 2002, including 60 grassland species classified into four functional groups: grasses, legumes, small herbs, and tall herbs (Roscher et al. 2004). The experiment originally comprised 82 plots with varying levels of species richness (1, 2, 4, 8, 16, and 60 species). We excluded the 60-species mixtures from the present analysis due to the lack of replicates with different species compositions. The experiment is organized in four blocks, with main plots of 20 m × 20 m (reduced to 6 m × 6 m in 2010) and additional monoculture plots of 3.5 m × 3.5 m (reduced to 1 m × 1 m in 2010) (Weisser et al. 2017). All plots were sown at a total density of 1,000 germinable seeds per m², with species in mixtures sown in equal proportions. For each plot, species composition was maintained by manual weeding twice per year in early spring and mid-summer or autumn. All plots are regularly mown two times per year, as being typical for extensive hay meadows in the region, and do not receive any fertilization. Aboveground plant biomass data at species level were used in this analysis. In total, 47 species and 62 mixture communities with 19 years of sampling were used in the analysis of the Main Experiment, i.e. 16 2-species plots, 16 4-species plots, 16 8-species plots, and 14 16-species plots.
+
+The ΔBEF Experiment was established in 2016 to investigate the influence of community age on biodiversity effects. It is a split-plot experiment nested within the main plots of the biodiversity experiment. In each of the Main Experiment plots, a 3 × 1.5 m subplot was created with new soil from a neighboring agricultural field and sown with seeds obtained by the same commercial supplier as used for the initial establishment of the biodiversity experiment. In addition, new monocultures of 1 × 1 m size were established with new seeds on new soil. This design eliminates plant and soil history, enabling pairwise comparisons of community age under identical weather conditions and providing robust insights into the temporal dynamics of biodiversity effects.</samplingDesign>
+    </measurements>
+    <dataProcessing>
+      <dataPreparation>Because some species were lost as communities aged, we excluded species that could not maintain biomass in monoculture in this study, defined as having biomass less than 1 g m-2 throughout more than five years. In contrast, species that were able to persist in monoculture but went extinct in mixtures were considered outcomes of interspecific interactions and thus retained in the analysis. This procedure may lead to an underestimation of facilitative interactions by excluding species that cannot maintain themselves in monocultures yet persist in mixed communities. Nevertheless, our preliminary analysis indicates that such cases are rare: only a small proportion (&lt;14%) of mixed communities included population of these species (with a biomass greater than 1 g m⁻²). In total, 47 species and 62 mixture communities with 19 years of sampling were used in the analysis of the Main Experiment, i.e. 16 2-species plots, 16 4-species plots, 16 8-species plots, and 14 16-species plots.</dataPreparation>
+      <dataAnalysis>For the main biodiversity experiment, we implemented a 5-year rolling window with 1-year intervals between consecutive windows, spanning a 19-year observational period from 2003 to 2021. For the ΔBEF Experiment, we used the 5-year time window from 2017 to 2021. For both experiments, we excluded data from the first year (2002 in the Main Experiment and 2016 in the ΔBEF Experiment) to minimize the effects of establishment. Within each time window, we calculated biodiversity effects on mean biomass and variability as well as their components. For the ΔBEF Experiment, we similarly derived the components underlying biodiversity effects on variability, and compare them with those derived from the old community over the same period. We fitted the relationship between biodiversity effects (and their components) and log-transformed sown species richness using linear mixed-effects models, with the order of the time window as the fixed effect and plot as the random effect. We also included a first-order autoregressive correlation structure (corAR1) to account for temporal autocorrelation. Because the inclusion of blocks did not improve the model fits, we excluded this factor in the final models. To test the link between biodiversity effects on productivity and variability over time, we fitted linear mixed models with a factor representing the sown richness as the random effects. This is because the sown richness influences biodiversity effects on both productivity and variability, thus potentially confounding their relationship.  The average water deficit within each five-year observational window was quantified using the mean 12-month Standardized Precipitation Evapotranspiration Index (SPEI), a comprehensive measure of water balance that integrates both precipitation and potential evapotranspiration, where potential evapotranspiration was calculated using the Penman-Monteith equation. This approach was proved successful in assessing biodiversity effects over time and climatic conditions. To examine the relationship between the water deficit and biodiversity effect, we fitted both linear and polynomial regression models. The best-fitting model was selected based on the second-order Akaike Information Criterion (AICc), which is appropriate for small sample sizes, as well as the coefficient of determination (R²).</dataAnalysis>
+    </dataProcessing>
+    <references>
+      <literatureReferences>Meng, B., Luo, M., Loreau, M., Hong, P., Craven, D., Eisenhauer, N. et al. (2025). Stabilizing effects of biodiversity arise from species-specific dynamics rather than interspecific interactions in grasslands. Nature Ecology &amp; Evolution, 1837–1847.</literatureReferences>
+    </references>
+    <importantNotes>In Primary data, it contains the following primary datasets and analysis scripts:
+
+TemporalTrendBiodiv_Results&amp;Figures_JEXIS.R – R script used for all statistical analyses and for generating the figures presented in the manuscript.
+README.pdf – Documentation describing the variables of the three datasets.
+Jena_time_NBE.csv – This dataset contains climate-related data along with the partitioned components of biodiversity effects on ecosystem functioning and variability over time within the main JENA experiment.
+dBEF_time_NBE.csv – This dataset contains climate-related data along with the partitioned components of biodiversity effects on ecosystem functioning and variability over time within the dBEF experiment.
+jena_detrend_SPEI.csv – This dataset contains the detrended biodiversity effects on ecosystem variability and the SPEI for each moving time window.
+
+The R script used to preprocess the primary data and generate the derived datasets is provided as supplementary material:
+
+TemporalTrendBiodiv_Data_Preprocessing_JEXIS.R – R script for data preprocessing and creation of the derived datasets.</importantNotes>
+  </methods>
+  <weeding>
+    <weedingInformation>
+      <year>not related to weeding</year>
+      <weeding_Block1>None</weeding_Block1>
+      <weeding_Block2>None</weeding_Block2>
+      <weeding_Block3>None</weeding_Block3>
+      <weeding_Block4>None</weeding_Block4>
+    </weedingInformation>
+  </weeding>
+  <keywords>
+    <environmentalDescriptors>
+      <environmentalDescriptor>None</environmentalDescriptor>
+    </environmentalDescriptors>
+    <processesAndServices>
+      <processAndService>Productivity</processAndService>
+    </processesAndServices>
+    <bioticDataTypes>
+      <bioticDataType>Multiple species</bioticDataType>
+    </bioticDataTypes>
+    <relativePositionToGround>
+      <aboveGround>Yes</aboveGround>
+      <belowGround>No</belowGround>
+    </relativePositionToGround>
+    <additionalKeywords>
+      <additionalKeyword>biodiversity effects</additionalKeyword>
+      <additionalKeyword>temporal variability</additionalKeyword>
+      <additionalKeyword>productivity</additionalKeyword>
+      <additionalKeyword>interaction-dependent effects</additionalKeyword>
+    </additionalKeywords>
+  </keywords>
+  <coverage>
+    <temporalCoverage>
+      <startDate>2003-01-01</startDate>
+      <endDate>2021-12-31</endDate>
+    </temporalCoverage>
+    <layerCoverage>
+      <layerStart>0</layerStart>
+      <layerEnd>Canopy</layerEnd>
+    </layerCoverage>
+    <dataLevel>Species level</dataLevel>
+    <plotNumbers>
+      <allPlotNumbers>53</allPlotNumbers>
+    </plotNumbers>
+    <taxonomicCoverage>
+      <taxon>Plants</taxon>
+    </taxonomicCoverage>
+  </coverage>
+  <dataStatus>
+    <dataStatus>Processed</dataStatus>
+    <uploadStatus>Complete</uploadStatus>
+    <primaryData>File</primaryData>
+  </dataStatus>
+</metaProfile>

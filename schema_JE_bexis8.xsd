@@ -1,0 +1,998 @@
+<?xml version="1.0"?>
+<!--
+The Jena Experiment Information System is
+Developed by the Central Data Management of The Jena Experiment
+http://www.the-jena-experiment.de/
+
+2021-06-18 addons:
+data upload status,
+related publications,
+Name and version of metadata schema: 2020: v1-4; 2021: V2
+plot numbers
+PI email and name together (06.07.2021)
+Name and version of metadata schema: 2020: v1-4; 2021: V2
+->project name and others...
+Version 3.0 (2024-02-02); updated line numbers: L85; L108-129; L946-953
+- New Experiment: Main-soilsuc
+- HowToCite: Dataset citation
+- Licence
+-->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="https://www.w3schools.com"
+	xmlns:bgc="https://www.w3schools.com"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="https://www.w3schools.com" elementFormDefault="qualified" xml:lang="en">
+	<!-- ========================================================================= -->
+
+	<!-- ========================================================================= -->
+	<xsd:element name="metaProfile" type="metaProfileType">
+		<xsd:annotation>
+			<xsd:documentation>
+				<![CDATA[This is the schema for metadata of the Jena Experiment funded by the DFG.]]>
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:complexType name="metaProfileType">
+		<xsd:sequence>
+
+			<xsd:element name="general" type="generalType" />
+			<xsd:element name="authorship" type="contactsType" />
+			<xsd:element name="methods" type="methodologyType" />
+			<xsd:element name="weeding" type="weedingType" />
+			<xsd:element name="keywords" type="keywordType" />
+			<xsd:element name="coverage" type="coverageType" />
+			<xsd:element name="dataStatus" type="dataStatusType" />
+
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<!-- =========================== generalType declarations ==================== -->
+	<xsd:complexType name="generalType">
+		<xsd:sequence>
+			<!-- =========================== general info ==================== -->
+      <xsd:element name="title" type="stringNotEmptyShort" minOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>
+						<![CDATA[Title of the dataset well describing the data (<b>what, where, when</b>). <br><u>Example 1</u>: <i>Soil texture from Main Experiment_year 2002</i><br><br>Assembled datasets that are part of a paper use the following style: short description of data + experiment + years + “used in:” + Family name of author (journal, year).<br><u>Example 2</u>: <i>Biomass data from the main plots (2002-2011) used in: Weisser et al Basic and Applied Ecology 2017</i>]]>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="abstract" type="stringNotEmptyLong" minOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>
+						<![CDATA[General short description of the dataset including:<ul><li>(i) motivation and background, description of the study, analysis</li><li>(ii) experiment and timeframe</li><li>(iii) kind of data (e.g. species occurrence, OTUs, trait data)</li><li>(iv) funding resources.</li></ul>Do not use abbreviations and do not include references to publications or methods.]]>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+      <xsd:element name="synthesis" type="booleanYesNo" maxOccurs="1">
+        <xsd:annotation>
+          <xsd:documentation>
+            <![CDATA[If the data is synthesis data which containing assembled data, choose YES, otherwise NO.]]>
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+
+			<xsd:element name="experiment" minOccurs="1">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="Main" />
+            <xsd:enumeration value="Trait" />
+            <xsd:enumeration value="dBEF" />
+            <xsd:enumeration value="Ecotron" />
+            <xsd:enumeration value="Mono_old" />
+            <xsd:enumeration value="Mono_dBEF" />
+			<xsd:enumeration value="Main_soilsuc" />
+            <xsd:enumeration value="Greenhouse" />
+            <xsd:enumeration value="Other-specify" />
+            <xsd:enumeration value="None" />
+          </xsd:restriction>
+        </xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="OtherExperimentSpecify"
+									type="stringEmptyShort"
+									minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Specify if not in the list, e.g. dom, rep, mono_new, mono_invasion, single_species_experiment2005-2007, shadow_experiment_2008-2010, reference_plots, small…</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+	<!-- ===========================DOI ==================== -->
+			<xsd:element name="doi" type="stringEmptyShort" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<![CDATA[DOI (Digital Object Identifier) of the dataset. If your data has been published already, give citation and doi here.]]>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="DataAccessPolicy" type="accessPolicy">
+				<xsd:annotation>
+					<xsd:documentation>
+						<![CDATA[Access policy contains information about the access and terms and conditions of use. <br> License short name is mentioned here if it's public available data, e.g. CC BY 4.0 (Creative Commons Attribution 4.0 International).</xsd:documentation]]>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="OtherPolicySpecify"
+									type="stringEmptyShort"
+									minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Specify if not in the list.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="howToCiteDataset" type="stringNotEmptyLong"  minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<![CDATA[Full citation string of the dataset.<br>
+						EXAMPLE: Bassi, L., Patzak, R., van Dam, N., & Weigelt, A. (2023). Leaf and fine root NIRS Spectra from old and new (dBEF) monoculture plots in 2020 (Version 17) [Data set]. Jena Experiment Information System. https://doi.org/10.25829/7ASR-PZ67]]>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<xsd:element name="relatedPublication"  type="stringEmptyShort" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						<![CDATA[add the related publication's doi here]]>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- real time stamp with seconds? internally generated-->
+			<xsd:element name="datasetID" type="positiveInteger" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<![CDATA[Identifier of the dataset, internally generated.]]>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<xsd:element name="versionID" type="positiveInteger" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<![CDATA[Version of the dataset, internally generated.]]>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<xsd:element name="registrationDate" type="xsd:string" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<![CDATA[Entry date of the metadata, internally generated.]]>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="metadataLastModificationDate" type="xsd:string" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<![CDATA[Date on which the metadata was last modified, internally generated.]]>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="dataCreationDate" type="xsd:string" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<![CDATA[Date on which the data was first uploaded, internally generated.]]>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<xsd:element name="dataLastModificationDate" type="xsd:string" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+							<![CDATA[Date on which the data was last modified, internally generated.]]>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		<xsd:element name="JenaExperimentMetadataSchemaV3.0" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<!-- =========================== Contacts declarations ==================== -->
+	<xsd:complexType name="contactsType">
+		<xsd:sequence>
+
+			<xsd:element name="metadataCreator" type="stringNotEmptyShort" minOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>
+						<![CDATA[The person describing and uploading the dataset.]]>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<xsd:element name="dataCreator" type="stringNotEmptyShort" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						<![CDATA[Main researcher(s) involved in producing the data.]]>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<xsd:element name="dataCollector" type="stringNotEmptyShort" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						<![CDATA[Person(s) responsible for gathering/collecting data under the guidelines of the data creator or PI. The collector and creator can be the same person.<br>]]>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<xsd:element name="ProjectLeader" type="leaderType" minOccurs="1" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						<![CDATA[Person responsible for the dataset (long-term) - usually the PI of the project.]]>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<xsd:element name="contactPerson" type="contactType">
+				<xsd:annotation>
+					<xsd:documentation>
+						<![CDATA[The person managing and granting access to the dataset. In general, the contact person is the PI of the project or a person designated by the PI.]]>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="institute" type="instituteType">
+				<xsd:annotation>
+					<xsd:documentation>
+						<![CDATA[The institute of the data owner(s)]]>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<xsd:element name="authorshipContribution" type="stringNotEmptyLong" minOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>
+						<![CDATA[<u>General description of who contrubiting to which variables from which year, especially the project leader should be mentioned here.</u>
+						<b>e.g. A,K., M.K., K.N. contributed to biomass data; C.B. and A.J. contributed to the LAI data; A.K., M.K. and C.B. contributed to the data from 2009-2013; K.N. and A.J. contributed to the data from 2014-2017; J.F. contributed to the synthesis of all the data.</b><br>
+						<u>For those who did important field and lab work, detailed contribution to the sampling and lab work can also be mentioned here.</u>
+						<b>e.g. M.K. contributed to the field sampling in year 2013; F.G. contributed to sample preparation and dissolved nitrogen measurement in the lab.</b>
+						]]>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+
+
+	<!-- ========== generalType/instituteType  -->
+	<xsd:complexType name="instituteType">
+		<xsd:sequence>
+			<xsd:element name="instituteName" type="stringNotEmptyShort" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						<![CDATA[The institute of the contact person.]]>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+		<!-- ========== generalType/contactType  -->
+
+		<xsd:complexType name="leaderType">
+			<xsd:sequence>
+				<xsd:element name="name"  type="stringNotEmptyShort">
+					<xsd:annotation>
+						<xsd:documentation>
+							<![CDATA[Name of the contact person for the dataset.]]>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<xsd:element name="email" minOccurs="1">
+					<xsd:annotation>
+						<xsd:documentation>
+							<![CDATA[The email address of the contact person.]]>
+						</xsd:documentation>
+					</xsd:annotation>
+					<xsd:simpleType >
+						<xsd:restriction base="xsd:string">
+							<xsd:minLength value="1" />
+							<xsd:maxLength value="150" />
+							<xsd:pattern value=".+@.+" />
+							<!--^[\w!#$%&'*+\-/=?\^_`{|}~]+(\.[\w!#$%&'*+\-/=?\^_`{|}~]+)*@((([\-\w]+\.)+[a-zA-Z]{2,4})|(([0-9]{1,3}\.){3}[0-9]{1,3}))$-->
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+			</xsd:sequence>
+		</xsd:complexType>
+	<xsd:complexType name="contactType">
+		<xsd:sequence>
+			<xsd:element name="name"  type="stringNotEmptyShort">
+				<xsd:annotation>
+					<xsd:documentation>
+						<![CDATA[Name of the contact person for the dataset.]]>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<xsd:element name="email" minOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>
+						<![CDATA[The email address of the contact person.]]>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType >
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="150" />
+						<xsd:pattern value=".+@.+" />
+						<!--^[\w!#$%&'*+\-/=?\^_`{|}~]+(\.[\w!#$%&'*+\-/=?\^_`{|}~]+)*@((([\-\w]+\.)+[a-zA-Z]{2,4})|(([0-9]{1,3}\.){3}[0-9]{1,3}))$-->
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="street" type="stringNotEmptyShort" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<![CDATA[The street of the contact person.]]>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="postalCode" type="stringNotEmptyShort" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<![CDATA[The postal code of the contact person.]]>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="city" type="stringNotEmptyShort" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<![CDATA[The city of the contact person.]]>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="country" type="stringNotEmptyShort" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<![CDATA[The country of the contact person.]]>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="phone" type="stringEmptyShort" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<![CDATA[The phone number of the contact person.]]>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="mobile" type="stringEmptyShort" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<![CDATA[The mobile phone number of the contact person.]]>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<xsd:element name="url" type="stringNotEmptyLong" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<![CDATA[The web page of the contact person, the project or the contact person.]]>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+
+  <!-- =========================== Methods declarations ==================== -->
+
+	<xsd:complexType name="methodologyType">
+		<xsd:sequence>
+			<xsd:element name="measurements" minOccurs="1">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="samplingDesign"  type="stringEmptyLong" minOccurs="1" >
+							<xsd:annotation>
+								<xsd:documentation>
+									<![CDATA[Detailed description of the sampling design (e.g. study plots, soil cores, or devices) and the number of samples taken at each plot.<br>Furthermore, a detailed description of the sampling methods (e.g. size of the soil core) is provided.]]>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="samplePreparation"  type="stringEmptyLong" minOccurs="0" >
+							<xsd:annotation>
+								<xsd:documentation>
+									<![CDATA[Description of the further preparation of samples before analysis (e.g. dry biomass, ground soils, freeze samples).]]>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="sampleAnalysis"  type="stringEmptyLong" minOccurs="0" >
+							<xsd:annotation>
+								<xsd:documentation>
+									<![CDATA[Description of all measurements in the field or lab (e.g. pH, sequencing, trait measurements, soil analysis).]]>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="equipment"  type="stringEmptyLong" minOccurs="0" >
+							<xsd:annotation>
+								<xsd:documentation>
+									<![CDATA[Equipment used for sample collection, measurements, and analysis (including calibration method of equipment).]]>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+
+			<xsd:element name="treatment"  type="stringEmptyShort" minOccurs="0" >
+				<xsd:annotation>
+					<xsd:documentation>
+						<![CDATA[Specify the special treatments here if there are any, e.g. drought, phytometers, Seed addition,
+						Aboveground Pesticide, Belowground Pesticide, Molluscicide, Nematicide, Earthworm exclosure etc.]]>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+
+			<xsd:element name="dataProcessing">
+				<xsd:annotation>
+					<xsd:documentation>
+						<![CDATA[Description of the analytical and statistical analysis of the data.]]>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="dataPreparation"  type="stringEmptyLong" minOccurs="0" >
+							<xsd:annotation>
+								<xsd:documentation>
+									<![CDATA[Steps of pre-processing of raw data before data analysis (e.g. data fusion, data cleaning).]]>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="dataAnalysis"  type="stringEmptyLong" minOccurs="0" >
+							<xsd:annotation>
+								<xsd:documentation>
+									<![CDATA[Description of the data analyis (e.g. statistical methods, indices, programs used).]]>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="references">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="literatureReferences"  type="stringEmptyLong" minOccurs="0" >
+							<xsd:annotation>
+								<xsd:documentation>
+									<![CDATA[List of references mentioned in the methods section. <br>Citation sample: First author et al. (year). Title. Journal. DOI.]]>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="dataReferences"  type="stringEmptyLong" minOccurs="0" >
+							<xsd:annotation>
+								<xsd:documentation>
+									<![CDATA[List of datasets referred to in the method section.]]></xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+			<xsd:element name="importantNotes" type="stringEmptyLong" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<![CDATA[Very important information concerning the use of the primary data.]]>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+
+
+  <!-- =========================== Weeding declarations ==================== -->
+	<xsd:complexType name="weedingType">
+		<xsd:sequence>
+			<xsd:element name="weedingInformation" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						<![CDATA[The coordination team try to weed the field site three times a year to maintain sown species composition.
+						However due to weather or other situation, some blocks may only weeded once/twice or not at all.</br>
+						The weeding situation is tried to keep the same for each blcok, but still it will influence the data that you collected. So it's important to mention the weeding situation here.</br>
+						<b>Please select the weeding situation for each year in your data; Here autocomplete is activated after you entering 3 characters in the "year" and select your year from the drop down</b></br>
+						If you have multiple years in your data, you can click "+" to add new year weeding situation]]>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="year"  type="stringEmptyShort" minOccurs="1" >
+							<xsd:annotation>
+								<xsd:documentation>
+									<![CDATA[Sampling year; Here autocomplete is activated after 3 characters; After you enter 3 characters, please select the year that is automately shown up in the drop down. Then there will be autocomplete content in the following weeding situation.
+									<br><b>If your data are not related to weeding, e.g. photos, vedios etc. you can enter "not" in the "year" and select "not related to weeding" from drop down, then there will be autocomplete contents.</b>]]>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="weeding_Block1" minOccurs="1" >
+							<xsd:annotation>
+								<xsd:documentation>
+									<![CDATA[
+									<b>Please select the weeding situation for each year of your data;</b></br>
+									<u>weeded0: not weeded;</u></br>
+									<u>weeded once: weeded once per year;</u></br>
+									<u>weeded twice: weeded twice per year;</u></br>
+									<u>weeded three times: weeded three times per year</u>]]>
+								</xsd:documentation>
+							</xsd:annotation>
+							<xsd:simpleType>
+								<xsd:restriction base="xsd:string">
+									<xsd:enumeration value="weeded0" />
+									<xsd:enumeration value="weeded once" />
+									<xsd:enumeration value="weeded twice" />
+									<xsd:enumeration value="weeded three times" />
+									<xsd:enumeration value="Other-specify" />
+			            <xsd:enumeration value="None" />
+								</xsd:restriction>
+							</xsd:simpleType>
+						</xsd:element>
+
+						<xsd:element name="weeding_Block2" minOccurs="1" >
+							<xsd:annotation>
+								<xsd:documentation>
+									<![CDATA[
+									<b>Please select the weeding situation for each year of your data;</b></br>
+									<u>weeded0: not weeded;</u></br>
+									<u>weeded once: weeded once per year;</u></br>
+									<u>weeded twice: weeded twice per year;</u></br>
+									<u>weeded three times: weeded three times per year</u>]]>
+								</xsd:documentation>
+							</xsd:annotation>
+							<xsd:simpleType>
+								<xsd:restriction base="xsd:string">
+									<xsd:enumeration value="weeded0" />
+									<xsd:enumeration value="weeded once" />
+									<xsd:enumeration value="weeded twice" />
+									<xsd:enumeration value="weeded three times" />
+									<xsd:enumeration value="Other-specify" />
+			            <xsd:enumeration value="None" />
+								</xsd:restriction>
+							</xsd:simpleType>
+						</xsd:element>
+
+						<xsd:element name="weeding_Block3" minOccurs="1" >
+							<xsd:annotation>
+								<xsd:documentation>
+									<![CDATA[
+									<b>Please select the weeding situation for each year of your data;</b></br>
+									<u>weeded0: not weeded;</u></br>
+									<u>weeded once: weeded once per year;</u></br>
+									<u>weeded twice: weeded twice per year;</u></br>
+									<u>weeded three times: weeded three times per year</u>]]>
+								</xsd:documentation>
+							</xsd:annotation>
+							<xsd:simpleType>
+								<xsd:restriction base="xsd:string">
+									<xsd:enumeration value="weeded0" />
+									<xsd:enumeration value="weeded once" />
+									<xsd:enumeration value="weeded twice" />
+									<xsd:enumeration value="weeded three times" />
+									<xsd:enumeration value="Other-specify" />
+									<xsd:enumeration value="None" />
+								</xsd:restriction>
+							</xsd:simpleType>
+						</xsd:element>
+
+						<xsd:element name="weeding_Block4" minOccurs="1" >
+							<xsd:annotation>
+								<xsd:documentation>
+									<![CDATA[
+									<b>Please select the weeding situation for each year of your data;</b></br>
+									<u>weeded0: not weeded;</u></br>
+									<u>weeded once: weeded once per year;</u></br>
+									<u>weeded twice: weeded twice per year;</u></br>
+									<u>weeded three times: weeded three times per year</u>]]>
+								</xsd:documentation>
+							</xsd:annotation>
+							<xsd:simpleType>
+								<xsd:restriction base="xsd:string">
+									<xsd:enumeration value="weeded0" />
+									<xsd:enumeration value="weeded once" />
+									<xsd:enumeration value="weeded twice" />
+									<xsd:enumeration value="weeded three times" />
+									<xsd:enumeration value="Other-specify" />
+			            <xsd:enumeration value="None" />
+								</xsd:restriction>
+							</xsd:simpleType>
+						</xsd:element>
+
+						<xsd:element name="otherWeedingNotes"  type="stringEmptyLong" minOccurs="0" >
+							<xsd:annotation>
+								<xsd:documentation>
+									<![CDATA[describe the other weeding important note that related to your data quality, </br><b>e.g. Block 1 just weeded before your sampling time but not other blocks</b>]]>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!-- ==================== keywordType declarations ============================= -->
+	<xsd:complexType name="keywordType">
+		<xsd:sequence>
+			<xsd:element name="environmentalDescriptors">
+				<xsd:annotation>
+					<xsd:documentation>
+						<![CDATA[List of environmental descriptions to characterize the observations in the dataset (Other-specify =  no appropriate descriptor listed, none = dataset can not be assigned to an environmental descriptor, e.g. R script).]]>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="environmentalDescriptor" minOccurs="1" maxOccurs="unbounded">
+							<xsd:simpleType>
+								<xsd:restriction base="xsd:string">
+									<xsd:enumeration value="Soil" />
+									<xsd:enumeration value="Climate" />
+									<xsd:enumeration value="Habitat structure" />
+									<xsd:enumeration value="Spatial" />
+									<xsd:enumeration value="Other-specify" />
+									<xsd:enumeration value="None" />
+								</xsd:restriction>
+							</xsd:simpleType>
+						</xsd:element>
+						<xsd:element name="other-Specify"
+												type="stringEmptyShort"
+												minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>Specify if not in the list</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="processesAndServices">
+				<xsd:annotation>
+					<xsd:documentation>
+						<![CDATA[Selection of ecosystem process and service classes covered by the dataset (Other-specify = appropriate process or service is not predefined, none = dataset describes no ecosystem process or service).]]>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="processAndService" minOccurs="1" maxOccurs="unbounded">
+							<xsd:simpleType>
+								<xsd:restriction base="xsd:string">
+									<xsd:enumeration value="Productivity" />
+									<xsd:enumeration value="Decomposition" />
+									<xsd:enumeration value="Biogeochemical cycle - Water" />
+									<xsd:enumeration value="Biogeochemical cycle - Carbon" />
+									<xsd:enumeration value="Biogeochemical cycle - Nitrogen" />
+									<xsd:enumeration value="Biogeochemical cycle - Other nutrients" />
+									<xsd:enumeration value="Ecological process - Herbivory" />
+									<xsd:enumeration value="Ecological process - Soil aggregation" />
+									<xsd:enumeration value="Ecological process - Mycorrhization" />
+									<xsd:enumeration value="Ecological process - Pollination" />
+									<xsd:enumeration value="Ecological process - Predation/Parasitism" />
+									<xsd:enumeration value="Ecological process - Dispersal" />
+									<xsd:enumeration value="Function/Service - Pest control" />
+									<xsd:enumeration value="Function/Service - Aesthetic" />
+									<xsd:enumeration value="Other-specify" />
+									<xsd:enumeration value="None" />
+								</xsd:restriction>
+							</xsd:simpleType>
+						</xsd:element>
+						<xsd:element name="other-Specify"
+												type="stringEmptyShort"
+												minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>Specify if not in the list</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="bioticDataTypes">
+				<xsd:annotation>
+					<xsd:documentation>
+						<![CDATA[Selection of biotic data types (Other-specify = biotic data type is not listed, none = no biotic data in the dataset).]]>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="bioticDataType"  minOccurs="1" maxOccurs="unbounded" >
+							<xsd:simpleType>
+								<xsd:restriction base="xsd:string">
+									<xsd:enumeration value="Single species" />
+									<xsd:enumeration value="Multiple species" />
+									<xsd:enumeration value="Abundance" />
+									<xsd:enumeration value="Total abundance" />
+									<xsd:enumeration value="Presence/Absence" />
+									<xsd:enumeration value="Aggregated diversity" />
+									<xsd:enumeration value="Demographic" />
+									<xsd:enumeration value="Morphological" />
+									<xsd:enumeration value="Chemical" />
+									<xsd:enumeration value="Genetic" />
+									<xsd:enumeration value="Other-specify" />
+									<xsd:enumeration value="None" />
+								</xsd:restriction>
+							</xsd:simpleType>
+						</xsd:element>
+						<xsd:element name="other-Specify"
+												type="stringEmptyShort"
+												minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>Specify if not in the list</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+      <xsd:element name="relativePositionToGround" >
+        <xsd:annotation>
+          <xsd:documentation>
+            <![CDATA[Location of the observations - below or/and above ground.]]>
+          </xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="aboveGround"  type="booleanYesNo"  />
+            <xsd:element name="belowGround"  type="booleanYesNo" />
+
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+
+			<xsd:element name="additionalKeywords" minOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>
+						<![CDATA[Further keywords describing the dataset.]]>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="additionalKeyword" type="stringNotEmptyShort" maxOccurs="unbounded" minOccurs="0" />
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<!-- ================================================================================= -->
+	<!-- =========================== coverageType declarations =========================== -->
+	<xsd:complexType name="coverageType">
+		<xsd:sequence>
+			<xsd:element name="temporalCoverage">
+				<xsd:annotation>
+					<xsd:documentation>
+						<![CDATA[Time period covered by the dataset.]]>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="startDate" type="xsd:date">
+							<!--later change to dateTime-->
+							<xsd:annotation>
+								<xsd:documentation>
+									<![CDATA[Start date of the time period covered by the dataset.]]>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="endDate" type="xsd:date">
+							<!--later change to dateTime-->
+							<xsd:annotation>
+								<xsd:documentation>
+									<![CDATA[End date of the time period covered by the dataset.]]>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+      <xsd:element name="layerCoverage">
+        <xsd:annotation>
+          <xsd:documentation>
+            <![CDATA[Location of the observations - below or/and above ground.]]>
+          </xsd:documentation>
+        </xsd:annotation>
+
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="layerStart" type="stringNotEmptyShort" minOccurs="0">
+              <!--later change to dateTime-->
+              <xsd:annotation>
+                <xsd:documentation>
+                  <![CDATA[Start layer of the observations covered by the dataset, negative numbers represent belowground layer, e.g. 5cm: 5cm aboveground; -5cm: 5cm belowground]]>
+                </xsd:documentation>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="layerEnd" type="stringNotEmptyShort" minOccurs="0">
+              <!--later change to dateTime-->
+              <xsd:annotation>
+                <xsd:documentation>
+                  <![CDATA[End layer of the observations covered by the dataset, negative numbers represent belowground layer, e.g. -60cm: 60cm belowground.]]>
+                </xsd:documentation>
+              </xsd:annotation>
+            </xsd:element>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+
+      <xsd:element name="dataLevel" minOccurs="1" maxOccurs="unbounded">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="Species level" />
+            <xsd:enumeration value="Plot level" />
+						<xsd:enumeration value="Other-specify" />
+						<xsd:enumeration value="None" />
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+			<xsd:element name="other-Specify"
+									type="stringEmptyShort"
+									minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Specify if not in the list</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<xsd:element name="plotNumbers">
+				<xsd:annotation>
+					<xsd:documentation>
+						<![CDATA[specify the plot numbers in your dataset]]>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="allPlotNumbers"  type="stringEmptyShort" minOccurs="1" >
+							<xsd:annotation>
+								<xsd:documentation>
+									<![CDATA[The total number of plots in your dataset]]>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+
+
+			<xsd:element name="taxonomicCoverage" minOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>
+						<![CDATA[Taxonomic groups investigated in this dataset.]]>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="taxon" maxOccurs="unbounded">
+							<xsd:annotation>
+								<xsd:documentation>
+									<![CDATA[The taxa covered by the dataset.]]>
+								</xsd:documentation>
+							</xsd:annotation>
+							<xsd:simpleType>
+								<xsd:restriction base="xsd:string">
+									<xsd:enumeration value="Plants" />
+                  <xsd:enumeration value="Microbes" />
+                  <xsd:enumeration value="Fungi" />
+									<xsd:enumeration value="Animals - Vertebrates" />
+									<xsd:enumeration value="Animals - Invertebrates" />
+									<xsd:enumeration value="Other-specify" />
+									<xsd:enumeration value="None" />
+								</xsd:restriction>
+							</xsd:simpleType>
+						</xsd:element>
+						<xsd:element name="other-Specify"
+												type="stringEmptyShort"
+												minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>Specify if not in the list</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<!-- ================================================================================= -->
+	<!-- =========================== dataType declarations =============================== -->
+  <xsd:complexType name="dataStatusType">
+		<xsd:sequence>
+			<xsd:element name="dataStatus" type="qualityType">
+				<xsd:annotation>
+					<xsd:documentation>
+						<![CDATA[Status of data processing. <ul><li>Raw = original data without any processing</li><li>Processed = data was processed (e.g., validated, aggregated, classified)</li><li>Assembled data = data is originally part of several datasets</li></ul>]]>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="uploadStatus" type="uploadType">
+				<xsd:annotation>
+					<xsd:documentation>
+						<![CDATA[Status of data uploading <ul><li>Complete = All data are successfully uploaded </li><li>Ongoing = only part of the dataset are uploaded (when dataset contains a time series; data will be continuously uploaded, e.g. monthly, yearly.)</li><li>In preparation = data are still under preparation and not uploaded yet.</li></ul>]]>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="primaryData" type="primaryDataType">
+				<xsd:annotation>
+					<xsd:documentation>
+						<![CDATA[data type<ul><li>Tabular supported formats: (*.xlsm) (*.xlsx) (*.txt) (*.csv) (*.tsv) </li><li>File supported formats: (*.avi) (*.bmp) (*.csv) (*.dbf) (*.doc) (*.docx) (*.gif) (*.jpg) (*.jpeg) (*.mp3) (*.mp4) (*.pdf) (*.png) (*.shp) (*.shx) (*.tif) (*.txt) (*.xls) (*.xlsm) (*.xlsx) (*.xsd) (*.zip) </li></ul>]]>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<!-- dataType -->
+	<!-- ==========  -->
+	<!-- ==========  dataType/fileType -->
+
+	<!-- ==========  dataType/qualtiyType-->
+	<xsd:simpleType name="qualityType">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="Raw"/>
+			<xsd:enumeration value="Processed"/>
+			<xsd:enumeration value="Assembled"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+
+	<xsd:simpleType name="uploadType">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="Complete"/>
+			<xsd:enumeration value="Onging"/>
+			<xsd:enumeration value="In preparation"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+
+	<xsd:simpleType name="primaryDataType">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="Tabular"/>
+			<xsd:enumeration value="File"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+
+	<xsd:simpleType name="accessPolicy">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="Open (CC BY 4.0)"/>
+			<xsd:enumeration value="Open (CC0)"/>
+			<xsd:enumeration value="Restricted"/>
+			<xsd:enumeration value="Available on Request"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+
+
+
+	<!-- =====Base Types =====  -->
+
+	<xsd:simpleType name="stringEmptyShort">
+		<xsd:restriction base="xsd:string">
+			<xsd:minLength value="0" />
+			<xsd:maxLength value="250" />
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="stringNotEmptyShort">
+		<xsd:restriction base="xsd:string">
+			<xsd:minLength value="1" />
+			<xsd:maxLength value="250" />
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="stringEmptyLong">
+		<xsd:restriction base="xsd:string">
+			<xsd:minLength value="0" />
+			<xsd:maxLength value="10000" />
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="stringNotEmptyLong">
+		<xsd:restriction base="xsd:string">
+			<xsd:minLength value="1" />
+			<xsd:maxLength value="10000" />
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="booleanYesNo">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="No" />
+			<xsd:enumeration value="Yes" />
+		</xsd:restriction>
+	</xsd:simpleType>
+
+	<xsd:complexType name="positiveInteger">
+		<xsd:simpleContent>
+			<xsd:extension base="xsd:unsignedInt">
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+
+
+</xsd:schema>
